@@ -66,7 +66,7 @@
             </div>
             <div
               v-show="tickerTips"
-              class="flex bg-white shadow-md p-1 rounded-md shadow-md flex-wrap"
+              class="flex bg-white shadow-md p-1 rounded-md flex-wrap"
             >
               <span
                 v-for="tickerTip in tickerTips"
@@ -339,4 +339,4 @@ export default {
 };
 </script>
 
-<style src="./app.css"></style>
+<style src="./assets/tailwind.css"></style>
