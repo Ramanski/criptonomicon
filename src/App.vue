@@ -92,7 +92,7 @@
               </span>
             </div>
             <div v-show="isRepeatedTickerName" class="text-sm text-red-600">
-              Такой тикер уже добавлен
+              Такой тикер уже добавлен!
             </div>
           </div>
         </div>
