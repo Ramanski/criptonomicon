@@ -49,12 +49,12 @@
             px-4
             border border-transparent
             shadow-sm
+            bg-gray-600
             text-sm
             leading-4
             font-medium
             rounded-full
             text-white
-            bg-gray-600
             hover:bg-gray-700
             transition-colors
             duration-300
@@ -152,9 +152,10 @@
             @click="select(t)"
             :class="{
               'border-4': selectedTicker === t,
+              'bg-red-300': t.invalid === true,
+              'bg-white': t.invalid !== true,
             }"
             class="
-              bg-white
               overflow-hidden
               shadow
               rounded-lg
@@ -291,12 +292,11 @@ export default {
 
       page: 1,
       isRepeatedTickerName: false,
+      dataIsLoading: true,
     };
   },
 
   created() {
-    this.dataIsLoading = true;
-
     const windowData = Object.fromEntries(
       new URL(window.location).searchParams.entries()
     );
@@ -320,8 +320,16 @@ export default {
       });
     }
 
-    this.dataIsLoading = false;
     setInterval(this.updateTickers, 5000);
+    this.dataIsLoading = false;
+  },
+
+  mounted() {
+    window.addEventListener("invalid-ticker", this.markTickerInvalid);
+  },
+
+  unmounted() {
+    window.removeEventListener("invalid-ticker");
   },
 
   computed: {
@@ -369,6 +377,14 @@ export default {
   },
 
   methods: {
+    markTickerInvalid(e) {
+      this.tickers
+        .filter((t) => t.name === e.detail)
+        .forEach((t) => {
+          t.invalid = true;
+        });
+    },
+
     updateTicker(tickerName, price) {
       this.tickers
         .filter((t) => t.name === tickerName)
