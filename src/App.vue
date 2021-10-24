@@ -268,9 +268,12 @@
 // [x] График сломан если везде одинаковые значения
 // [x] При удалении тикера остается выбор
 
-import { subscribeToTicker, unsubscribeFromTicker } from "./api";
-import Loader from "./Loader.vue";
-import TickerTips from "./TickerTips.vue";
+import {
+  subscribeToTicker,
+  unsubscribeFromTicker,
+} from "./tickerHandlingService";
+import Loader from "./components/Loader.vue";
+import TickerTips from "./components/TickerTips.vue";
 
 export default {
   name: "App",
